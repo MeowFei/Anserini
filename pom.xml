@@ -38,6 +38,42 @@
         </configuration>
       </plugin>
       <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.RSA</exclude>
+                    <exclude>META-INF/*.SF</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/services/org.apache.lucene.codecs.Codec</resource>
+                </transformer>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/services/org.apache.lucene.codecs.DocValuesFormat</resource>
+                </transformer>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/services/org.apache.lucene.codecs.PostingsFormat</resource>
+                </transformer>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>mainClassName</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>appassembler-maven-plugin</artifactId>
         <version>1.10</version>
@@ -124,10 +160,10 @@
               <mainClass>io.anserini.util.ExtractRm3Stopwords</mainClass>
               <name>ExtractRm3Stopwords</name>
             </program>
-              <program>
-                  <mainClass>io.anserini.ltr.FeatureExtractorCli</mainClass>
-                  <name>FeatureExtractor</name>
-              </program>
+            <program>
+              <mainClass>io.anserini.ltr.FeatureExtractorCli</mainClass>
+              <name>FeatureExtractor</name>
+            </program>
             <program>
               <mainClass>io.anserini.index.IndexCacmRecords</mainClass>
               <name>IndexCACM</name>
@@ -145,8 +181,8 @@
               <name>DumpDocument</name>
             </program>
             <program>
-                <mainClass>io.anserini.rts.TRECSearcher</mainClass>
-                <name>TRECSearcher</name>
+              <mainClass>io.anserini.rts.TRECSearcher</mainClass>
+              <name>TRECSearcher</name>
             </program>
             <program>
               <mainClass>io.anserini.embeddings.train.TrainW2V</mainClass>
@@ -368,33 +404,33 @@
       <version>2.22.1</version>
     </dependency>
     <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-core</artifactId>
-        <version>2.7.2</version>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.7.2</version>
     </dependency>
 
     <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>2.7.2</version>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.7.2</version>
     </dependency>
 
     <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-annotations</artifactId>
-        <version>2.7.2</version>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>2.7.2</version>
     </dependency>
 
     <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>2.6</version>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
     </dependency>
 
     <dependency>
-        <groupId>org.deeplearning4j</groupId>
-        <artifactId>deeplearning4j-core</artifactId>
-        <version>0.6.0</version>
+      <groupId>org.deeplearning4j</groupId>
+      <artifactId>deeplearning4j-core</artifactId>
+      <version>0.6.0</version>
     </dependency>
 
     <dependency>
@@ -429,9 +465,9 @@
 
     <!--Sesame for parsing triples-->
     <dependency>
-        <groupId>org.openrdf.sesame</groupId>
-        <artifactId>sesame-rio-ntriples</artifactId>
-        <version>4.1.2</version>
+      <groupId>org.openrdf.sesame</groupId>
+      <artifactId>sesame-rio-ntriples</artifactId>
+      <version>4.1.2</version>
     </dependency>
 
   </dependencies>
